@@ -8,6 +8,7 @@ import com.intellij.ui.content.ContentFactory;
 import org.jetbrains.annotations.NotNull;
 
 public class MainFormFactory implements ToolWindowFactory {
+    public boolean initialized = false;
 
     /**
      * Create the tool window content.
@@ -17,9 +18,13 @@ public class MainFormFactory implements ToolWindowFactory {
      */
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        MainForm myToolWindow = new MainForm(toolWindow);
-        ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
-        Content content = contentFactory.createContent(myToolWindow.getContent(), "", false);
-        toolWindow.getContentManager().addContent(content);
+        if (!initialized) {
+            MainForm myToolWindow = new MainForm(toolWindow);
+            ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
+            Content content = contentFactory.createContent(myToolWindow.getContent(), "", false);
+            toolWindow.getContentManager().addContent(content);
+            initialized = true;
+
+        }
     }
 }

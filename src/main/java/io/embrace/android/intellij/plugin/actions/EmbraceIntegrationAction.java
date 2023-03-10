@@ -1,9 +1,13 @@
 package io.embrace.android.intellij.plugin.actions;
 
+import com.intellij.ide.projectView.ProjectView;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.project.ex.ProjectManagerEx;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
+import com.intellij.psi.impl.cache.CacheManager;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -37,10 +41,19 @@ public class EmbraceIntegrationAction extends AnAction {
      */
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
+        if (event.getProject() == null)
+            return;
+
         ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(event.getProject());
         ToolWindow window = toolWindowManager.getToolWindow("EmbracePluginWindow");
-        if (window != null)
-            window.show();
+
+
+        if (window == null)
+            return;
+
+        toolWindowManager.invokeLater(window::show);
+
+//        ApplicationManager.getApplication().invokeLater(window::show);
     }
 
 

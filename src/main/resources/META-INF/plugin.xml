@@ -55,8 +55,5 @@
                     factoryClass="io.embrace.android.intellij.plugin.forms.MainFormFactory"/>
     </extensions>
 
-    <!--    <applicationListeners>-->
-    <!--        <listener class="io.embrace.android.intellij.plugin.listeners.MyProjectManagerListener"-->
-    <!--                  topic="com.intellij.openapi.project.ProjectManagerListener"/>-->
-    <!--    </applicationListeners>-->
+
 </idea-plugin>
